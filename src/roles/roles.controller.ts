@@ -12,7 +12,7 @@ import {
   UseFilters,
   ForbiddenException,
   ParseIntPipe,
-  UsePipes, ParseBoolPipe, Query, DefaultValuePipe,
+  UsePipes, ParseBoolPipe, Query, DefaultValuePipe, UseGuards,
 } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import {CreateRoleDto, createRoleSchema} from './dto/create-role.dto';
@@ -21,9 +21,11 @@ import { Observable, of } from 'rxjs';
 import { HttpExceptionFilter } from '../exception/http-exception.filter';
 import { JoiValidationPipe } from '../pipes/joi-validation/joi-validation.pipe';
 import {ValidationPipe} from "../pipes/validation/validation.pipe";
+import {AuthGuard} from "../auth/auth.guard";
 
 
 @Controller('roles')
+@UseGuards(AuthGuard)
 export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
